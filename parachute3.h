@@ -27,6 +27,18 @@ static int altMovCount = 0;
 static int apogeeVelNegCount = 0;
 static bool apogeeDetectedByKalman = false;
 
+// Máquina de estados
+enum ParachuteState {
+  IDLE,
+  ASCENDING,
+  DROPPING,
+  STAGE1_DEPLOYED,
+  STAGE2_DEPLOYED,
+  FINISHED
+};
+// Estado atual/inicial
+static ParachuteState currentState = IDLE;
+
 // Helper: média móvel simples
 static double movingAvgAlt(double alt_in) {
   altMovBuf[altMovPos] = alt_in;
@@ -177,3 +189,4 @@ void updateParachuteState() {
       break;
   }
 }
+
